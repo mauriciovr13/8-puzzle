@@ -184,8 +184,10 @@ def main():
 	arquivo = open('log.txt', 'w')
 	arquivo.close()
 
-	##items = [4,1,3,2,6,8,7,5,0]      # items do tabuleiro
-	items = [2,0,3,1,7,4,6,8,5]
+	# items = [4,1,3,2,6,8,7,5,0] # items do tabuleiro
+	# items = [2,0,3,1,7,4,6,8,5] 
+	items = [1,2,3,8,6,4,7,5,0] # tabuleiro com a resposta
+
 	#random.shuffle(items) # embaralhando os items do tabuleiro
 	teste1 = cria_tabuleiro(items) # criando o tabuleiro
 
@@ -203,8 +205,13 @@ def main():
 	resultado = ia.busca(problema, enfileira_fifo)
 	fim = time.time()
 	
-	#profundiade
+	#profundidade
 	problema1 = ia.Problema(teste1, operadores, teste_meta, funcao_custo)
+	ini1 = time.time()
+	resultado1 = ia.busca(problema1, enfileira_lifo)
+	fim1 = time.time()
+	
+
 	#gulosa
 	problema2 = ia.Problema(teste1, operadores, teste_meta, heuristica_desordenado)
 	#A* desordenado
@@ -213,9 +220,6 @@ def main():
 	problema4 = ia.Problema(teste1, operadores, teste_meta, heuristica_manhattan)
 
 	
-	# ini1 = time.time()
-	# resultado1 = ia.busca(problema1, enfileira_lifo)
-	# fim1 = time.time()
 	# ini2 = time.time()
 	# resultado2 = ia.buscagulosa(problema2, enfileira_lifo)
 	# fim2 = time.time()
@@ -232,12 +236,12 @@ def main():
 	print ("Tempo: ", fim - ini)
 	print ("Numero de comparacoes: ", problema.comparacoes)
 	print ("-------------------------------------------------")
-	# print ("Busca em Profundiade")
-	# print ("Estado Inicial:",teste1["pecas"])
-	# print ("Saida Busca em Largura: ", resultado1)
-	# print ("Tempo: ", fim1 - ini1)
-	# print ("Numero de comparacoes: ", problema1.comparacoes)
-	# print ("-------------------------------------------------")
+	print ("Busca em Profundiade")
+	print ("Estado Inicial:",teste1["pecas"])
+	print ("Saida Busca em Largura: ", resultado1)
+	print ("Tempo: ", fim1 - ini1)
+	print ("Numero de comparacoes: ", problema1.comparacoes)
+	print ("-------------------------------------------------")
 	# print ("Busca em Gulosa")
 	# print ("Estado Inicial:",teste1["pecas"])
 	# print ("Saida Busca em Largura: ", resultado2)
