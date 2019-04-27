@@ -40,20 +40,26 @@ class No:
 		self.ultima_expansao = ultima_expansao
 
 	def __str__(self):
+		retorno = ""
 		for linha in range(3):
 			for coluna in range(3):
 				print(self.estado["pecas"][linha][coluna], end=" ")
+				retorno += str(self.estado["pecas"][linha][coluna]) + " "
 			print()
+			retorno += "\n"
 		print("Profundidade: " , self.profundidade)
 		print("Custo_caminho: " , self.custo_caminho)
-		return ""
+		retorno += "Profundidade: " + str(self.profundidade) + "\n"
+		retorno += "Custo_caminho: " + str(self.custo_caminho) + "\n\n"
+		return retorno
 
 
 def movimentacao_contraria(movimentacao):
 	if(movimentacao == 'move_baixo'): return 'move_cima'
 	elif(movimentacao == 'move_cima'): return 'move_baixo'
 	elif(movimentacao == 'move_direita'): return 'move_esquerda'
-	else: return 'move_direita'
+	elif(movimentacao == 'move_esquerda'): return 'move_direita'
+	else: return None
 
 def expande(no, problema):
 	"""
@@ -124,20 +130,33 @@ def busca(problema, enfileira):
 	@param enfileira: funcao de enfileiramento de nos
 	"""
 	nos = [No(problema.estado_inicial, None, None, 0, 0, None)] # criando uma fila com o estado inicial
-	visitados = []
+	visitados = [] # mantem os nos que já foram visitados para nao visitá-los novamente
 	while (True):
 		if nos == []: return None # retorna fracasso caso a lista seja vazia
 
 		no = nos.pop(0)
 		#print(problema.teste_meta(no.estado))
-		# verifica se o estado atual e a meta
+		
 		c = c + 1
 		problema.comparacoes = c
-		if problema.teste_meta(no.estado): return no.estado
 		
-		print(no)
-		#time.sleep(10)
+		#print(no)
+		noSTR = no.__str__()
+		#print(noSTR)
+		#escrever no arquivo
+		arquivo = open('log.txt', 'r') # Abra o arquivo (leitura)
+		conteudo = arquivo.readlines()
+		conteudo.append(noSTR)   # insira seu conteúdo
 
+		arquivo = open('log.txt', 'w') # Abre novamente o arquivo (escrita)
+		arquivo.writelines(conteudo)    # escreva o conteúdo criado anteriormente nele.
+
+		arquivo.close()
+
+		#time.sleep(10)
+		
+		if problema.teste_meta(no.estado): return no.estado # verifica se o estado atual e a meta
+		
 		# caso nao seja a meta, o no e expandido
 		if not no.estado in visitados:
 			nos = enfileira(expande(no, problema), nos)

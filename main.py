@@ -120,7 +120,8 @@ def teste_meta(tabuleiro):
 	@return true se o tabuleiro e a meta, false caso contrario
 	"""
 
-	return tabuleiro["pecas"] == [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+	#return tabuleiro["pecas"] == [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+	return tabuleiro["pecas"] == [[1, 2, 3], [8, 0, 4], [7, 6, 5]]
 
 
 def enfileira_fifo(lista_1, lista_2):
@@ -179,7 +180,12 @@ def heuristica_manhattan(tabuleiro):
 
 
 def main():
-	items = [4,1,3,2,6,8,7,5,0]      # items do tabuleiro
+	# criando apagando o arquivo para salvar o novo log
+	arquivo = open('log.txt', 'w')
+	arquivo.close()
+
+	##items = [4,1,3,2,6,8,7,5,0]      # items do tabuleiro
+	items = [2,0,3,1,7,4,6,8,5]
 	#random.shuffle(items) # embaralhando os items do tabuleiro
 	teste1 = cria_tabuleiro(items) # criando o tabuleiro
 
@@ -207,18 +213,18 @@ def main():
 	problema4 = ia.Problema(teste1, operadores, teste_meta, heuristica_manhattan)
 
 	
-	ini1 = time.time()
-	resultado1 = ia.busca(problema1, enfileira_lifo)
-	fim1 = time.time()
-	ini2 = time.time()
-	resultado2 = ia.buscagulosa(problema2, enfileira_lifo)
-	fim2 = time.time()
-	ini3 = time.time()
-	resultado3 = ia.buscaaestrela(problema3, enfileira_lifo)
-	fim3 = time.time()
-	ini4 = time.time()
-	resultado4 = ia.buscaaestrela(problema4, enfileira_lifo)
-	fim4 = time.time()
+	# ini1 = time.time()
+	# resultado1 = ia.busca(problema1, enfileira_lifo)
+	# fim1 = time.time()
+	# ini2 = time.time()
+	# resultado2 = ia.buscagulosa(problema2, enfileira_lifo)
+	# fim2 = time.time()
+	# ini3 = time.time()
+	# resultado3 = ia.buscaaestrela(problema3, enfileira_lifo)
+	# fim3 = time.time()
+	# ini4 = time.time()
+	# resultado4 = ia.buscaaestrela(problema4, enfileira_lifo)
+	# fim4 = time.time()
 
 	print ("Busca em Largura")
 	print ("Estado Inicial:",teste1["pecas"])
@@ -226,30 +232,30 @@ def main():
 	print ("Tempo: ", fim - ini)
 	print ("Numero de comparacoes: ", problema.comparacoes)
 	print ("-------------------------------------------------")
-	print ("Busca em Profundiade")
-	print ("Estado Inicial:",teste1["pecas"])
-	print ("Saida Busca em Largura: ", resultado1)
-	print ("Tempo: ", fim1 - ini1)
-	print ("Numero de comparacoes: ", problema1.comparacoes)
-	print ("-------------------------------------------------")
-	print ("Busca em Gulosa")
-	print ("Estado Inicial:",teste1["pecas"])
-	print ("Saida Busca em Largura: ", resultado2)
-	print ("Tempo: ", fim2 - ini2)
-	print ("Numero de comparacoes: ", problema2.comparacoes)
-	print ("-------------------------------------------------")
-	print ("Busca A* numero de pessas fora do lugar")
-	print ("Estado Inicial:",teste1["pecas"])
-	print ("Saida Busca em Largura: ", resultado3)
-	print ("Tempo: ", fim3 - ini3)
-	print ("Numero de comparacoes: ", problema3.comparacoes)
-	print ("-------------------------------------------------")
-	print ("Busca A* Distancia de Manhattan")
-	print ("Estado Inicial:",teste1["pecas"])
-	print ("Saida Busca em Largura: ", resultado4)
-	print ("Tempo: ", fim4 - ini4)
-	print ("Numero de comparacoes: ", problema4.comparacoes)
-	print ("-------------------------------------------------")
+	# print ("Busca em Profundiade")
+	# print ("Estado Inicial:",teste1["pecas"])
+	# print ("Saida Busca em Largura: ", resultado1)
+	# print ("Tempo: ", fim1 - ini1)
+	# print ("Numero de comparacoes: ", problema1.comparacoes)
+	# print ("-------------------------------------------------")
+	# print ("Busca em Gulosa")
+	# print ("Estado Inicial:",teste1["pecas"])
+	# print ("Saida Busca em Largura: ", resultado2)
+	# print ("Tempo: ", fim2 - ini2)
+	# print ("Numero de comparacoes: ", problema2.comparacoes)
+	# print ("-------------------------------------------------")
+	# print ("Busca A* numero de pessas fora do lugar")
+	# print ("Estado Inicial:",teste1["pecas"])
+	# print ("Saida Busca em Largura: ", resultado3)
+	# print ("Tempo: ", fim3 - ini3)
+	# print ("Numero de comparacoes: ", problema3.comparacoes)
+	# print ("-------------------------------------------------")
+	# print ("Busca A* Distancia de Manhattan")
+	# print ("Estado Inicial:",teste1["pecas"])
+	# print ("Saida Busca em Largura: ", resultado4)
+	# print ("Tempo: ", fim4 - ini4)
+	# print ("Numero de comparacoes: ", problema4.comparacoes)
+	# print ("-------------------------------------------------")
 
 	"""Com heuristica:"""
 	"""		Numero de pecas fora de posicao		"""
