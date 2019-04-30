@@ -126,17 +126,19 @@ def teste_meta(tabuleiro):
 
 def enfileira_fifo(lista_1, lista_2):
 	'''
-	@param lista_1: 
-	@param lista_2: 
-	@return 
+	Função recebe duas lista e adiciona a lista_1 ao final da lista 2
+	@param lista_1: novos valores a adicionar
+	@param lista_2: lista já com os valores
+	@return lista
 	'''
 	return lista_2 + lista_1
 
 def enfileira_lifo(lista_1,lista_2):
 	'''
+	Função recebe duas listas, A e B e somente contatena elas
 	@param lista_1: 
 	@param lista_2: 
-	@return 
+	@return lista_1+lista_2
 	'''
 	return lista_1 + lista_2
 
@@ -164,7 +166,14 @@ def heuristica_desordenado(tabuleiro):
 	return contador
 
 def heuristica_manhattan(tabuleiro):
-	meta = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+	'''
+	Distancia de Manhattan é calculada sobre coordenadas Euclidianas. É simplismente pegar a diferença em
+	modulo de cada atributo, no nosso problema a diferença pode ser a posição dos elementos na matriz,
+	considerando a matriz como com distancias euclidianas. O resultado dessa soma vai ser a distancia
+	de Manhattam (Somatorio do modulo das diferenças)
+	'''
+	# meta = [[1, 2, 3], [4, 5, 6], [7, 8, 0]]
+	meta = [[1, 2, 3], [8, 0, 4], [7, 6, 5]]
 	soma = 0
 	#print tabuleiro["pecas"]
 	for i in range(3):
@@ -186,7 +195,7 @@ def main():
 
 	# items = [4,1,3,2,6,8,7,5,0] # items do tabuleiro
 	# items = [2,0,3,1,7,4,6,8,5] 
-	items = [1,2,3,8,6,4,7,5,0] # tabuleiro com a resposta
+	items = [1,0,3,8,6,4,7,5,2] # tabuleiro com a resposta
 
 	#random.shuffle(items) # embaralhando os items do tabuleiro
 	teste1 = cria_tabuleiro(items) # criando o tabuleiro
@@ -211,14 +220,17 @@ def main():
 	resultado1 = ia.busca(problema1, enfileira_lifo)
 	fim1 = time.time()
 	
-
+	"""Com heuristica"""
 	#gulosa
 	problema2 = ia.Problema(teste1, operadores, teste_meta, heuristica_desordenado)
 	#A* desordenado
 	problema3 = ia.Problema(teste1, operadores, teste_meta, heuristica_desordenado)
+	
 	#A* Manhattan
 	problema4 = ia.Problema(teste1, operadores, teste_meta, heuristica_manhattan)
-
+	ini4 = time.time()
+	resultado4 = ia.buscaaestrela(problema4, enfileira_lifo)
+	fim4 = time.time()
 	
 	# ini2 = time.time()
 	# resultado2 = ia.buscagulosa(problema2, enfileira_lifo)
@@ -226,9 +238,6 @@ def main():
 	# ini3 = time.time()
 	# resultado3 = ia.buscaaestrela(problema3, enfileira_lifo)
 	# fim3 = time.time()
-	# ini4 = time.time()
-	# resultado4 = ia.buscaaestrela(problema4, enfileira_lifo)
-	# fim4 = time.time()
 
 	print ("Busca em Largura")
 	print ("Estado Inicial:",teste1["pecas"])
@@ -236,7 +245,7 @@ def main():
 	print ("Tempo: ", fim - ini)
 	print ("Numero de comparacoes: ", problema.comparacoes)
 	print ("-------------------------------------------------")
-	print ("Busca em Profundiade")
+	print ("Busca em Profundidade")
 	print ("Estado Inicial:",teste1["pecas"])
 	print ("Saida Busca em Largura: ", resultado1)
 	print ("Tempo: ", fim1 - ini1)
@@ -254,12 +263,12 @@ def main():
 	# print ("Tempo: ", fim3 - ini3)
 	# print ("Numero de comparacoes: ", problema3.comparacoes)
 	# print ("-------------------------------------------------")
-	# print ("Busca A* Distancia de Manhattan")
-	# print ("Estado Inicial:",teste1["pecas"])
-	# print ("Saida Busca em Largura: ", resultado4)
-	# print ("Tempo: ", fim4 - ini4)
-	# print ("Numero de comparacoes: ", problema4.comparacoes)
-	# print ("-------------------------------------------------")
+	print ("Busca A* Distancia de Manhattan")
+	print ("Estado Inicial:",teste1["pecas"])
+	print ("Saida Busca em Largura: ", resultado4)
+	print ("Tempo: ", fim4 - ini4)
+	print ("Numero de comparacoes: ", problema4.comparacoes)
+	print ("-------------------------------------------------")
 
 	"""Com heuristica:"""
 	"""		Numero de pecas fora de posicao		"""

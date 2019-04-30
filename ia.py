@@ -113,7 +113,8 @@ def expande2(no, problema):
 		# se o no produz algum filho, entao coloque ele no conjunto de filhos
 		if not resultado is None:
 			# criando um novo no a partir da expansao do no atual
-			filhos.append(No(resultado, operacao, no, no.profundidade + 1,no.profundidade + 1 + problema.funcao_custo(resultado), operacao.__name__))
+			#filhos.append(No(resultado, operacao, no, no.profundidade + 1,no.profundidade + 1 + problema.funcao_custo(resultado), operacao.__name__))
+			filhos.append(No(resultado, no, operacao, no.profundidade + 1, no.profundidade + 1 + problema.funcao_custo(resultado), None))
 
 	# retornando o conjunto resultante da expansao
 	return filhos
@@ -165,6 +166,12 @@ def busca(problema, enfileira):
 		#print (len(nos))
 
 def tira_melhor(nos):
+	'''
+	Função que recebe uma lista de nos e retira o nó com o menor custo, retira da lista e retorna
+	pra quem chamou
+	@param nos: lista de nos
+	@return aux: no com o menor custo de caminho
+	'''
 	aux = nos[0]
 	for i in nos:
 		if aux.custo_caminho > i.custo_caminho:
@@ -211,18 +218,22 @@ def buscaaestrela(problema, enfileira):
 	@param problema: problema a ser resolvido
 	@param enfileira: funcao de enfileiramento de nos
 	"""
-	nos = [No(problema.estado_inicial, None, None, 0, 0)] # criando uma fila com o estado inicial
-	visitados = []
+	nos = [No(problema.estado_inicial, None, None, 0, 0, None)] # criando uma fila com o estado inicial
+	visitados = [] # lista com os vertices já visitados
 	while (True):
 		if nos == []: return None # retorna fracasso caso a lista seja vazia
 
-		no = tira_melhor(nos)
+		no = tira_melhor(nos) # pega o no com o menor custo do caminho
+
 		#print no.custo_caminho
 		#print(problema.teste_meta(no.estado))
-		# verifica se o estado atual e a meta
+		noSTR = no.__str__()
+		
 		c = c + 1
 		problema.comparacoes = c
+		# verifica se o estado atual e a meta
 		if problema.teste_meta(no.estado): return no.estado
+
 		# caso nao seja a meta, o no e expandido
 		if not no.estado in visitados:
 			nos = enfileira(expande2(no, problema), nos)
