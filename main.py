@@ -196,9 +196,6 @@ def main():
     arquivo.close()
 
     # items = [4,1,3,2,6,8,7,5,0] # items do tabuleiro
-    # items = [2,0,3,1,7,4,6,8,5] 
-    # items = [1,0,3,8,6,4,7,5,2] # tabuleiro com a resposta
-    # items = [5,1,3,0,8,2,4,6,7]
 
     print("1- Digitar uma lista correspondente ao tabuleiro inicial")
     print("2- Utilizar uma lista pré-definida")
@@ -207,7 +204,7 @@ def main():
         print("Digite 9 elementos da lista: ")
         items = list(map(int, input().split()))
     elif opcao == 2:
-        items = [2,0,3,1,7,4,6,8,5] 
+        items = [1,0,3,8,6,4,7,5,2] 
     else:
         print("Opção incorreta.")
     
@@ -224,6 +221,7 @@ def main():
         print("1- Busca em Amplitude (largura-cega)")
         print("2- Busca em Profundidade")
         print("3- A* (Heurística de Manhattan)")
+        print("9- Sair.")
         print("Digite a opção desejada: ")
         opcao = int(input())
         temResultado = False
@@ -265,6 +263,10 @@ def main():
             fim = time.time()
             temResultado = True
             print("A* Desordenado")
+        elif opcao == 9:
+            print("Sair.")
+            break
+            
         else:
             temResultado = False
             print("Opção Incorreta.")
