@@ -199,8 +199,18 @@ def main():
     # items = [2,0,3,1,7,4,6,8,5] 
     # items = [1,0,3,8,6,4,7,5,2] # tabuleiro com a resposta
     # items = [5,1,3,0,8,2,4,6,7]
-    items = [3,5,8,2,7,6,1,4,0]
 
+    print("1- Digitar uma lista correspondente ao tabuleiro inicial")
+    print("2- Utilizar uma lista pré-definida")
+    opcao = int(input())
+    if opcao == 1:
+        print("Digite 9 elementos da lista: ")
+        items = list(map(int, input().split()))
+    elif opcao == 2:
+        items = [2,0,3,1,7,4,6,8,5] 
+    else:
+        print("Opção incorreta.")
+    
     #random.shuffle(items) # embaralhando os items do tabuleiro
     teste1 = cria_tabuleiro(items) # criando o tabuleiro
 
@@ -209,6 +219,63 @@ def main():
     #teste = embaralha(t,operadores)
 
     #teste1 = [[1,2,3],[4,0,6],[7,5,8]]
+
+    while True:
+        print("1- Busca em Amplitude (largura-cega)")
+        print("2- Busca em Profundidade")
+        print("3- A* (Heurística de Manhattan)")
+        print("Digite a opção desejada: ")
+        opcao = int(input())
+        temResultado = False
+        problema = None
+        ini = 0
+        fim = 0
+        if opcao == 1:
+            problema = ia.Problema(teste1, operadores, teste_meta, funcao_custo)
+            ini = time.time()
+            resultado = ia.busca(problema, enfileira_fifo)
+            fim = time.time()
+            temResultado = True
+            print("Busca em Amplitude (largura-cega)")
+        elif opcao == 2:
+            problema = ia.Problema(teste1, operadores, teste_meta, funcao_custo)
+            ini = time.time()
+            resultado = ia.busca(problema, enfileira_lifo)
+            fim = time.time()
+            temResultado = True
+            print("Busca em Profundidade")
+        elif opcao == 3:
+            problema = ia.Problema(teste1, operadores, teste_meta, heuristica_manhattan)
+            ini = time.time()
+            resultado = ia.buscaaestrela(problema, enfileira_lifo)
+            fim = time.time()
+            temResultado = True
+            print ("Busca A* Distancia de Manhattan")
+        elif opcao == 4: #nao esta funcionando totalmente
+            problema = ia.Problema(teste1, operadores, teste_meta, heuristica_desordenado)
+            ini = time.time()
+            resultado = ia.buscagulosa(problema, enfileira_lifo)
+            fim = time.time()
+            temResultado = True
+            print("Busca Gulosa")
+        elif opcao == 5:
+            problema = ia.Problema(teste1, operadores, teste_meta, heuristica_desordenado)
+            ini = time.time()
+            resultado = ia.buscaaestrela(problema, enfileira_lifo)
+            fim = time.time()
+            temResultado = True
+            print("A* Desordenado")
+        else:
+            temResultado = False
+            print("Opção Incorreta.")
+
+        if temResultado:
+            
+            print ("Estado Inicial:",teste1["pecas"])
+            print ("Saida Busca: ", resultado)
+            print ("Tempo: ", fim - ini)
+            print ("Numero de comparacoes: ", problema.comparacoes)
+            print ("-------------------------------------------------")
 
     #Problemas:
     """Sem heuristica:"""
@@ -226,15 +293,14 @@ def main():
     
     """Com heuristica"""
     #gulosa
-    problema2 = ia.Problema(teste1, operadores, teste_meta, heuristica_desordenado)
-    #A* desordenado
-    problema3 = ia.Problema(teste1, operadores, teste_meta, heuristica_desordenado)
+    # #A* desordenado
+    # problema3 = ia.Problema(teste1, operadores, teste_meta, heuristica_desordenado)
     
-    #A* Manhattan
-    problema4 = ia.Problema(teste1, operadores, teste_meta, heuristica_manhattan)
-    ini4 = time.time()
-    resultado4 = ia.buscaaestrela(problema4, enfileira_lifo)
-    fim4 = time.time()
+    # #A* Manhattan
+    # problema4 = ia.Problema(teste1, operadores, teste_meta, heuristica_manhattan)
+    # ini4 = time.time()
+    # resultado4 = ia.buscaaestrela(problema4, enfileira_lifo)
+    # fim4 = time.time()
     
     # ini2 = time.time()
     # resultado2 = ia.buscagulosa(problema2, enfileira_lifo)
@@ -267,12 +333,12 @@ def main():
     # print ("Tempo: ", fim3 - ini3)
     # print ("Numero de comparacoes: ", problema3.comparacoes)
     # print ("-------------------------------------------------")
-    print ("Busca A* Distancia de Manhattan")
-    print ("Estado Inicial:",teste1["pecas"])
-    print ("Saida Busca em Largura: ", resultado4)
-    print ("Tempo: ", fim4 - ini4)
-    print ("Numero de comparacoes: ", problema4.comparacoes)
-    print ("-------------------------------------------------")
+    # print ("Busca A* Distancia de Manhattan")
+    # print ("Estado Inicial:",teste1["pecas"])
+    # print ("Saida Busca em Largura: ", resultado4)
+    # print ("Tempo: ", fim4 - ini4)
+    # print ("Numero de comparacoes: ", problema4.comparacoes)
+    # print ("-------------------------------------------------")
 
     """Com heuristica:"""
     """     Numero de pecas fora de posicao     """

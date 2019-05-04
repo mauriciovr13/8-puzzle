@@ -229,6 +229,7 @@ def buscaaestrela(problema, enfileira):
         #print no.custo_caminho
         #print(problema.teste_meta(no.estado))
         noSTR = no.__str__()
+        # time.sleep(10)
         
         c = c + 1
         problema.comparacoes = c
@@ -237,7 +238,7 @@ def buscaaestrela(problema, enfileira):
 
         # caso nao seja a meta, o no e expandido
         if not no.estado in visitados:
-            #nos = enfileira(expande2(no, problema), nos)
+            # nos = enfileira(expande2(no, problema), nos)
             nos = expande2(no, problema)
             visitados.append(no.estado)
             # print(visitados)
